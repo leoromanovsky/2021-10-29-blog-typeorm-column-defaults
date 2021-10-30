@@ -1,20 +1,13 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore ORMConfig is currently not imported as per projects module system
+import ORMConfig from '../ormconfig';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'leo',
-      database: '2021-10-29-blog-typeorm-column-defaults',
-      entities: [],
-      synchronize: true,
-    }),
-  ],
+  imports: [TypeOrmModule.forRoot(ORMConfig as TypeOrmModuleOptions)],
   controllers: [AppController],
   providers: [AppService],
 })
